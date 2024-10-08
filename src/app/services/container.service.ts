@@ -20,15 +20,15 @@ export class ContainerService {
     return this.httpClient.get<ContainerDTO>(this.containerURL + `details/${id}`);
   }
 
-  public createContainer(containerDTO: ContainerDTO): Observable<ContainerDTO> {
+  public create(containerDTO: ContainerDTO): Observable<ContainerDTO> {
     return this.httpClient.post<ContainerDTO>(this.containerURL + 'create', containerDTO);
   }
 
-  public deleteContainer(id: number): Observable<any> {
+  public delete(id: number): Observable<any> {
     return this.httpClient.delete<any>(this.containerURL + `delete/${id}`)
   }
 
-  public updateContainer(id: number, object: ContainerDTO): Observable<ContainerDTO> {
+  public update(id: number, object: ContainerDTO): Observable<ContainerDTO> {
     return this.httpClient.put<ContainerDTO>(this.containerURL + `update/${id}`, object);
   }
 }

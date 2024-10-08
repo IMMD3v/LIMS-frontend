@@ -4,10 +4,16 @@
         <body class="">
         <main>
           <div class="py-5 text-center">
-            <h2>Container Create form</h2>
-            <p class="lead">Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+            @if (!isEditing) {
+              <h2>Formulario Nuevo Container</h2>
+              <p class="lead">Los campos del formulario son obligatorios para dar de alta un nuevo container. Por favor complete todos.</p>
+            }
+            @if (isEditing) {
+              <h2>Editar Container</h2>
+              <p class="lead">Los campos del formulario son obligatorios para actualizar el container. Por favor complete todos.</p>
+            }
           </div>
-      
+
           <div class="row g-5">
             <div class="col-md-12">
               <h4 class="mb-3">New Container Form</h4>

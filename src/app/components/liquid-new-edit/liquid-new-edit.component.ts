@@ -1,32 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { ContainerService } from '../../services/container.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ContainerDTO } from '../../models/container-dto';
+import { Component } from '@angular/core';
+import { LiquidDTO } from '../../models/liquid-dto';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { LiquidService } from '../../services/liquid.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-container-new-edit',
+  selector: 'app-liquid-new-edit',
   standalone: true,
   imports: [ReactiveFormsModule],
-  templateUrl: './container-new-edit.component.html',
-  styleUrl: './container-new-edit.component.css'
+  templateUrl: './liquid-new-edit.component.html',
+  styleUrl: './liquid-new-edit.component.css'
 })
-export class ContainerNewEditComponent implements OnInit{
+export class LiquidNewEditComponent {
 
   isEditing: boolean = false;
-  containerDetails: ContainerDTO | undefined;
-  newContainerForm: FormGroup;
+  liquidDetails: LiquidDTO | undefined;
+  newLiquidForm: FormGroup;
 
   constructor(
-    private containerService: ContainerService,
+    private liquidService: LiquidService,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private router: Router
   ) {
-    this.newContainerForm = this.formBuilder.group({
-      containerID: ['', Validators.required],
-      containerCapacity: ['', Validators.required]
+    this.newLiquidForm = this.formBuilder.group({
+      description: ['', Validators.required],
+      origin: ['', Validators.required],
+      volume: ['', Validators.required],
+      batch: ['', Validators.required]
     })
   }
 
@@ -40,13 +42,15 @@ export class ContainerNewEditComponent implements OnInit{
     if (recordId != 0) {
       console.log('hay id, estás editando');
       this.isEditing = true;
-      this.containerService.details(recordId).subscribe({
-        next: (data: ContainerDTO) => {
-          this.containerDetails = data;
-          this.newContainerForm.patchValue({
+      this.liquidService.details(recordId).subscribe({
+        next: (data: LiquidDTO) => {
+          this.liquidDetails = data;
+          this.newLiquidForm.patchValue({
             id: recordId,
-            containerID: data.name,
-            containerCapacity: data.capacity
+            description: data.description,
+            origin: data.origin,
+            volume: data.volume,
+            batch: data.batch
           })
         },
         error: (error: HttpErrorResponse) => {
@@ -64,20 +68,22 @@ export class ContainerNewEditComponent implements OnInit{
       this.router.navigate(['']);
   }
 
-  public createContainer() {
-    if (this.newContainerForm.valid) {
-      const request: ContainerDTO = {   
-        name: this.newContainerForm.value.containerID,
-        capacity: this.newContainerForm.value.containerCapacity
+  public createLiquid() {
+    if (this.newLiquidForm.valid) {
+      const request: LiquidDTO = {   
+        description: this.newLiquidForm.value.description,
+        origin: this.newLiquidForm.value.origin,
+        volume: this.newLiquidForm.value.volume,
+        batch: this.newLiquidForm.value.batch,
       }
       
-      this.containerService.create(request).subscribe({
+      this.liquidService.create(request).subscribe({
         //luego de suscribirnos al evento, si la respuesta es positiva
         next: (data:any) => {
           alert('Registro creado!');
           this.router.navigate(['']);
           console.log(data);
-          this.newContainerForm.reset();
+          this.newLiquidForm.reset();
         },
         //en cambio si produce un error:
         error: (error: HttpErrorResponse) => {
@@ -91,17 +97,19 @@ export class ContainerNewEditComponent implements OnInit{
     console.log('end of method');
   }
 
-  updateContainer(form: FormGroup) {
+  updateLiquid(form: FormGroup) {
     if (form.invalid) {
       alert('Hay errores en el formulario!');
     } else {
     const itemId = Number(this.activatedRoute.snapshot.paramMap.get('id'))
-    const request: ContainerDTO = {
-      name: form.value.containerID,
-      capacity: form.value.containerCapacity
+    const request: LiquidDTO = {
+      description: form.value.description,
+      origin: form.value.origin,
+      volume: form.value.volume,
+      batch: form.value.batch
     }
     console.log(itemId);
-      this.containerService.update(itemId!, request).subscribe({
+      this.liquidService.update(itemId!, request).subscribe({
         next: (data: any) => {
           alert('Producto actualizado!');
           this.router.navigate(['']);
