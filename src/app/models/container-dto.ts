@@ -3,4 +3,6 @@ export interface ContainerDTO {
     name: string;
     capacity: number;
     liquidType?: string;
+    material: string;
+    inUse?: boolean;
 }

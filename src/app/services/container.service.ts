@@ -20,8 +20,8 @@ export class ContainerService {
     return this.httpClient.get<ContainerDTO>(this.containerURL + `details/${id}`);
   }
 
-  public create(containerDTO: ContainerDTO): Observable<ContainerDTO> {
-    return this.httpClient.post<ContainerDTO>(this.containerURL + 'create', containerDTO);
+  public create(object: ContainerDTO): Observable<ContainerDTO> {
+    return this.httpClient.post<ContainerDTO>(this.containerURL + 'create', object);
   }
 
   public delete(id: number): Observable<any> {

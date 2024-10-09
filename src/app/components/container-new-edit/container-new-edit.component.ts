@@ -26,7 +26,8 @@ export class ContainerNewEditComponent implements OnInit{
   ) {
     this.newContainerForm = this.formBuilder.group({
       containerID: ['', Validators.required],
-      containerCapacity: ['', Validators.required]
+      containerCapacity: ['', Validators.required],
+      containerMaterial: ['', Validators.required]
     })
   }
 
@@ -46,7 +47,9 @@ export class ContainerNewEditComponent implements OnInit{
           this.newContainerForm.patchValue({
             id: recordId,
             containerID: data.name,
-            containerCapacity: data.capacity
+            containerCapacity: data.capacity,
+            containerMaterial: data.material,
+            containerAvailability: data.inUse
           })
         },
         error: (error: HttpErrorResponse) => {
@@ -68,7 +71,8 @@ export class ContainerNewEditComponent implements OnInit{
     if (this.newContainerForm.valid) {
       const request: ContainerDTO = {   
         name: this.newContainerForm.value.containerID,
-        capacity: this.newContainerForm.value.containerCapacity
+        capacity: this.newContainerForm.value.containerCapacity,
+        material: this.newContainerForm.value.containerMaterial
       }
       
       this.containerService.create(request).subscribe({
@@ -98,7 +102,8 @@ export class ContainerNewEditComponent implements OnInit{
     const itemId = Number(this.activatedRoute.snapshot.paramMap.get('id'))
     const request: ContainerDTO = {
       name: form.value.containerID,
-      capacity: form.value.containerCapacity
+      capacity: form.value.containerCapacity,
+      material: form.value.containerMaterial
     }
     console.log(itemId);
       this.containerService.update(itemId!, request).subscribe({

@@ -1,7 +1,7 @@
 <div class="container-fluid py-4">
     <div class="p-5 mb-4 bg-body-tertiary rounded-3">
       <div class="container-fluid">
-        <h1 class="display-5 fw-bold">Container Details</h1>
+        <h1 class="display-5 fw-bold">Analysis Request Details</h1>
         <button class="btn btn-primary btn-lg" type="button">Example button</button>
       </div>
     </div>
@@ -9,17 +9,20 @@
     <div class="row align-items-md-stretch">
       <div class="col-md-12 col-lg-6">
         <div class="h-100 p-5 text-bg-dark rounded-3">
-          <h3>Container ID: {{containerDetails?.name}}</h3>
-          <h3>Container Capacity: {{containerDetails?.capacity}}</h3>
-          <h3>Container Material: {{containerDetails?.material}}</h3>
-          <h3>Container Availability: {{containerDetails?.inUse}}</h3>
+          <h3>Request ID: {{analysisDetails?.id}}</h3>
+          <h3>Request Status: {{analysisDetails?.status}}</h3>
+          <h3>Request By: {{analysisDetails?.requestedBy}}</h3>
+          <h3>Request Date: {{analysisDetails?.requestDate}}</h3>
+          <h3>Completion Date : {{analysisDetails?.completionDate}}</h3>
           <button class="btn btn-outline-light" type="button">Example button</button>
         </div>
       </div>
       <div class="col-md-12 col-lg-6">
         <div class="h-100 p-5 bg-body-tertiary border rounded-3">
-          <h3>Container History</h3>
-          <p>Or, keep it light and add a border for some added definition to the boundaries of your content. Be sure to look under the hood at the source HTML here as we've adjusted the alignment and sizing of both column's content for equal-height.</p>
+          <h3>Protocol Detail</h3>
+          <h4>Sample: <b>{{analysisDetails?.liquid}}</b></h4>
+          <p>pH: <b>{{analysisDetails?.pH}}</b></p>
+          <p>Turbidity: <b>{{analysisDetails?.turbidity}}</b></p>
           <button class="btn btn-outline-secondary" type="button">Example button</button>
         </div>
       </div>
@@ -30,3 +33,4 @@
         </div>
     </div>
   </div>
+

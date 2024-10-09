@@ -1,38 +1,38 @@
 import { Component } from '@angular/core';
-import { LiquidDTO } from '../../models/liquid-dto';
-import { LiquidService } from '../../services/liquid.service';
+import { AnalysisRequestDTO } from '../../models/analysis-req-dto';
+import { AnalysisRequestService } from '../../services/analysis-request.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-liquid-details',
+  selector: 'app-analysis-details',
   standalone: true,
   imports: [],
-  templateUrl: './liquid-details.component.html',
-  styleUrl: './liquid-details.component.css'
+  templateUrl: './analysis-details.component.html',
+  styleUrl: './analysis-details.component.css'
 })
-export class LiquidDetailsComponent {
+export class AnalysisDetailsComponent {
 
-  liquidDetails: LiquidDTO | undefined;
+  analysisDetails: AnalysisRequestDTO | undefined;
 
   constructor(
-    private liquidService: LiquidService,
+    private analysisService: AnalysisRequestService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.getProductDetail();
+    this.getAnalysisDetail();
   }
 
-  getProductDetail() {
+  getAnalysisDetail() {
     const id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     if (id) {
       // this.isEditing = true;
-      this.liquidService.details(id).subscribe({
-        next: (data: LiquidDTO) => {
-          this.liquidDetails = data;
-          console.log(this.liquidDetails);
+      this.analysisService.details(id).subscribe({
+        next: (data: AnalysisRequestDTO) => {
+          this.analysisDetails = data;
+          console.log(this.analysisDetails);
           // this.newItemForm.patchValue({
           //   id: Number(this.activatedRoute.snapshot.paramMap.get('id')),
           //   itemName: data.itemName,

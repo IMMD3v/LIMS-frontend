@@ -21,7 +21,7 @@
                 <div class="row g-3">
                   <div class="col-sm-12 col-lg-2">
                     <label for="containerID" class="form-label">Container ID</label>
-                    <input type="text" class="form-control" id="containerID" placeholder="" value="" formControlName="containerID">
+                    <input type="text" class="form-control" id="containerID" placeholder="set identification value" value="" formControlName="containerID">
                     <div class="invalid-feedback">
                       Valid first name is required.
                     </div>
@@ -29,28 +29,17 @@
       
                   <div class="col-sm-12 col-lg-10">
                     <label for="containerCapacity" class="form-label">Capacity</label>
-                    <input type="text" class="form-control" id="containerCapacity" placeholder="" value="" formControlName="containerCapacity">
+                    <input type="text" class="form-control" id="containerCapacity" placeholder="capacity in liters" value="" formControlName="containerCapacity">
                     <div class="invalid-feedback">
                       Valid last name is required.
                     </div>
                   </div>
       
                   <div class="col-sm-12 col-lg-6">
-                    <label for="containerLocation" class="form-label">Location</label>
-                    <input type="text" class="form-control" id="containerLocation" placeholder="Factory Sector" required="">
+                    <label for="containerMaterial" class="form-label">Material Built</label>
+                    <input type="text" class="form-control" id="containerMaterial" placeholder="construction material" formControlName="containerMaterial">
                     <div class="invalid-feedback">
                       Please enter your shipping address.
-                    </div>
-                  </div>
-      
-                  <div class="col-sm-12 col-lg-6">
-                    <label for="country" class="form-label">Built Material</label>
-                    <select class="form-select" id="country" required="">
-                      <option value="">Choose...</option>
-                      <option>United States</option>
-                    </select>
-                    <div class="invalid-feedback">
-                      Please select a valid country.
                     </div>
                   </div>
 

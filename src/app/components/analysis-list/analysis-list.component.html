@@ -4,11 +4,10 @@
         <div class="card">
           <div class="card-header">
             <div class="d-flex justify-content-between">
-              <div class="p-2"><h2>Container List</h2></div>
+              <div class="p-2"><h2>Analysis Request List</h2></div>
               <div class="p-2">
 
-                <button type="button" class="btn btn-primary" (click)="onCreateNewContainer()">New Container (ADMIN OPTION)</button>
-                
+                <button type="button" class="btn btn-primary" (click)="onCreateNewAnalysis()">New Request</button>
 
               </div>
             </div>
@@ -19,19 +18,21 @@
               <thead>
                 <tr>
                   <!-- <th scope="col">DETAILS</th> -->
-                  <th scope="col">CONTAINER ID</th>
-                  <th scope="col">CAPACITY</th>
-                  <th scope="col">LIQUID TYPE</th>
+                  <th scope="col">REQUEST NUMBER</th>
+                  <th scope="col">STATUS</th>
+                  <th scope="col">REQUEST DATE</th>
+                  <th scope="col">REQUEST BY</th>
                   <th scope="col">ADMIN OPTIONS</th>
                 </tr>
               </thead>
               <tbody>
-                @for (item of containers; track item.id) {
+                @for (item of analysis; track item.id) {
                   <tr>
-                    <td><button class="btn btn-outline-primary" (click)="onDetails(item.id)"><img class="bi" width="16" height="16" src="assets/details.svg" alt="details"></button> {{item.name}}</td>
+                    <td><button class="btn btn-outline-primary" (click)="onDetails(item.id)"><img class="bi" width="16" height="16" src="assets/details.svg" alt="details"></button> {{item.id}}</td>
                     <!-- <td>{{item.name}}</td> -->
-                    <td>{{item.capacity}}</td>
-                    <td>{{item.liquidType}}</td>
+                    <td>{{item.status}}</td>
+                    <td>{{item.requestDate}}</td>
+                    <td>{{item.requestedBy}}</td>
                     <td>
                       <button class="btn btn-secondary rounded-pill" type="button" (click)="onUpdating(item?.id)">Edit</button>
                       <button class="btn btn-danger rounded-pill" type="button" (click)="deleteRecord(item?.id)">Delete</button>
@@ -51,3 +52,4 @@
     </div>
 
   </div>
+
