@@ -3,6 +3,7 @@ import { LiquidDTO } from '../../models/liquid-dto';
 import { LiquidService } from '../../services/liquid.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { LiquidShareService } from '../../services/liquid-share.service';
 
 @Component({
   selector: 'app-liquid-list',
@@ -16,8 +17,9 @@ export class LiquidListComponent implements OnInit{
   liquids: LiquidDTO[] = [];
   totalRecords: number | undefined;
 
-  constructor(private liquidService: LiquidService,
-    private router: Router
+  constructor(
+    private liquidService: LiquidService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {

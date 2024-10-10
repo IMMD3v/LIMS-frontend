@@ -16,6 +16,10 @@ export class ContainerService {
     return this.httpClient.get<ContainerDTO[]>(this.containerURL + 'listAll');
   }
 
+  public listAllEmpty(): Observable<ContainerDTO[]> {
+    return this.httpClient.get<ContainerDTO[]>(this.containerURL + 'listAllEmpty');
+  }
+
   public details(id: number): Observable<ContainerDTO> {
     return this.httpClient.get<ContainerDTO>(this.containerURL + `details/${id}`);
   }

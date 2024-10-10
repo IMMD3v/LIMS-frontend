@@ -3,6 +3,7 @@ import { LiquidDTO } from '../../models/liquid-dto';
 import { LiquidService } from '../../services/liquid.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { LiquidShareService } from '../../services/liquid-share.service';
 
 @Component({
   selector: 'app-liquid-details',
@@ -18,7 +19,8 @@ export class LiquidDetailsComponent {
   constructor(
     private liquidService: LiquidService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private liquidShare: LiquidShareService
   ) {}
 
   ngOnInit(): void {
@@ -50,6 +52,11 @@ export class LiquidDetailsComponent {
 
   cancelOperation():void {
       this.router.navigate(['']);
+  }
+
+  onLiquidMovements(item: LiquidDTO): void {
+    this.liquidShare.setLiquid(item);
+    this.router.navigate(['liquidMovements']);
   }
 
 }

@@ -1,0 +1,60 @@
+<div class="container-fluid py-4">
+    <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+      <div class="container-fluid">
+        <h1 class="display-5 fw-bold">Liquid Movements</h1>
+        <button class="btn btn-primary btn-lg" type="button">Example button</button>
+      </div>
+    </div>
+
+    <div class="row align-items-md-stretch">
+      <div class="col-md-12 col-lg-6">
+        <div class="h-100 p-5 text-bg-dark rounded-3">
+          <h3>Description: {{liquidDetails?.description}}</h3>
+          <h3>Origin: {{liquidDetails?.origin}}</h3>
+          <h3>Volume: {{liquidDetails?.volume}}</h3>
+          <h3>Batch: {{liquidDetails?.batch}}</h3>
+          <button class="btn btn-outline-light" type="button">Container Assignement</button>
+        </div>
+        
+      </div>
+      <div class="col-md-12 col-lg-6">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+          <h3>Available Containers</h3>
+          <h5>Litros a asignar: {{liquidDetails?.volume}}</h5>
+          <div class="list-group">
+            <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Selection</th>
+                    <th scope="col">Container ID</th>
+                    <th scope="col">Material</th>
+                    <th scope="col">Capacity (Lts)</th>
+                    <th scope="col">Options</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    @for (item of emptyContainers; track item.id) {
+                        <tr>
+                            <td>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                </div>
+                            </td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.material}}</td>
+                            <td>{{item.capacity}}</td>
+                            <td><button class="btn btn-primary rounded-pill px-3" type="button" (click)="onDetails(item.id)">Details</button></td>
+                        </tr>
+                    }
+                </tbody>
+              </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-4 bg-body-tertiary rounded-3">
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-success me-2" type="button" (click)="cancelOperation()">Cancelar</button>
+        </div>
+    </div>
+  </div>
