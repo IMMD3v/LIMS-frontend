@@ -27,17 +27,10 @@ export class ContainerDetailsComponent implements OnInit {
   getProductDetail() {
     const id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     if (id) {
-      // this.isEditing = true;
       this.containerService.details(id).subscribe({
         next: (data: ContainerDTO) => {
           this.containerDetails = data;
           console.log(this.containerDetails);
-          // this.newItemForm.patchValue({
-          //   id: Number(this.activatedRoute.snapshot.paramMap.get('id')),
-          //   itemName: data.itemName,
-          //   itemSellPrice: data.itemSellPrice,
-          //   itemStock: data.itemStock
-          // });
         },
         error: (error: HttpErrorResponse) => {
           alert('Error al obtener los detalles del producto!');

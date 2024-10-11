@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { ContainerDTO } from '../../models/container-dto';
 import { ContainerService } from '../../services/container.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { LiquidIdDTO } from '../../models/liquid-id-dto';
+import { LiquidMovementService } from '../../services/liquid-movement.service';
 
 @Component({
   selector: 'app-liquid-movements',
@@ -21,15 +23,33 @@ export class LiquidMovementsComponent implements OnInit{
   constructor(
     private liquidShare: LiquidShareService,
     private containerService: ContainerService,
+    private liquidMovService: LiquidMovementService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.getProductDetail();
     this.getEmptyContainers();
+    this.liquidCapture();
   }
 
-  getProductDetail() {
+  liquidCapture(): void {
+    const object: LiquidIdDTO | null = this.liquidShare.getLiquid();
+    if (object) {
+      this.liquidMovService.capture(object).subscribe({
+        next: (data: any) => {
+          console.log('ok');
+        },
+        error: (error: any) => {
+          console.log('algo mal ocurrió');
+        }
+      })
+    } else {
+      alert('Error of object!')
+    }
+  }
+
+  getProductDetail(): void {
     const object: LiquidDTO | null = this.liquidShare.getLiquid();
     if (object) {
       console.log(object)
@@ -58,6 +78,14 @@ export class LiquidMovementsComponent implements OnInit{
 onDetails(id: number | undefined): void {
   console.log(id);
   this.router.navigate([`contDetails/${id}`]);
+}
+
+toggleEditable(event: any, itemId: number | undefined): void {
+  console.log(event.target.checked);
+}
+
+liquidAssignement(event: any, itemId: number | undefined): void {
+  console.log(event.target.checked);
 }
 
 }

@@ -19,8 +19,9 @@
       </div>
       <div class="col-md-12 col-lg-6">
         <div class="h-100 p-5 bg-body-tertiary border rounded-3">
-          <h3>Available Containers</h3>
-          <h5>Litros a asignar: {{liquidDetails?.volume}}</h5>
+          <h3>Contenedores Disponibles</h3>
+          <h5>Litros restantes a asignar: {{liquidDetails?.volume}}</h5>
+          <p>Seleccione el o los contenedor(es) necesarios para almacenar el volúmen del líquido</p>
           <div class="list-group">
             <table class="table table-bordered">
                 <thead>
@@ -37,13 +38,16 @@
                         <tr>
                             <td>
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                    <input type="checkbox" class="custom-control-input" id="{{item.id}}" (change)="toggleEditable($event, item.id)">
                                 </div>
                             </td>
                             <td>{{item.name}}</td>
                             <td>{{item.material}}</td>
                             <td>{{item.capacity}}</td>
-                            <td><button class="btn btn-primary rounded-pill px-3" type="button" (click)="onDetails(item.id)">Details</button></td>
+                            <td>
+                              <button class="btn btn-primary rounded-pill px-3" type="button" (click)="onDetails(item.id)">Details</button>
+                              <button class="btn btn-success rounded-pill px-3" type="button" (change)="liquidAssignement($event, item.id)">Asignar</button>                            
+                            </td>
                         </tr>
                     }
                 </tbody>
