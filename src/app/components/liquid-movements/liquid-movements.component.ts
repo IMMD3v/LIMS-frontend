@@ -9,6 +9,7 @@ import { LiquidIdDTO } from '../../models/liquid-id-dto';
 import { LiquidMovementService } from '../../services/liquid-movement.service';
 import { ContainerIdDTO } from '../../models/container-id-dto';
 import { RemainVolumeDTO } from '../../models/remain-volume-dto';
+import { ContainerShareService } from '../../services/container-share.service';
 
 @Component({
   selector: 'app-liquid-movements',
@@ -26,6 +27,7 @@ export class LiquidMovementsComponent implements OnInit{
   constructor(
     private liquidShare: LiquidShareService,
     private containerService: ContainerService,
+    private containerShare: ContainerShareService,
     private liquidMovService: LiquidMovementService,
     private router: Router
   ) {}
@@ -78,9 +80,9 @@ cancelOperation():void {
     this.router.navigate(['']);
 }
 
-onDetails(id: number | undefined): void {
-  console.log(id);
-  this.router.navigate([`contDetails/${id}`]);
+onDetails(item: ContainerDTO): void {
+  this.containerShare.setContainer(item);
+  this.router.navigate(['contDetails']);
 }
 
 setLiquidToContainer(itemId: number | undefined): void {

@@ -12,8 +12,11 @@
           <h3>Description: {{liquidDetails?.description}}</h3>
           <h3>Origin: {{liquidDetails?.origin}}</h3>
           <h3>Original Volume: {{liquidDetails?.originalVolume}}</h3>
+          <h3>Actual Volume: {{liquidDetails?.actualVolume}}</h3>
           <h3>Batch: {{liquidDetails?.batch}}</h3>
-          <button class="btn btn-outline-light" type="button" (click)="onLiquidMovements(liquidDetails!)">Container Assignement</button>
+          @if (!isVolumeDepleted) {
+            <button class="btn btn-outline-light" type="button" (click)="onLiquidMovements(liquidDetails!)">Container Assignement</button>
+          }
         </div>
       </div>
       <div class="col-md-12 col-lg-6">

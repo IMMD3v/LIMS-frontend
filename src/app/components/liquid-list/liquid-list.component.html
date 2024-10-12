@@ -28,13 +28,13 @@
               <tbody>
                 @for (item of liquids; track item.id) {
                   <tr>
-                    <td><button class="btn btn-outline-primary" (click)="onDetails(item.id)"><img class="bi" width="16" height="16" src="assets/details.svg" alt="details"></button> {{item.description}}</td>
+                    <td><button class="btn btn-outline-primary" (click)="onDetails(item)"><img class="bi" width="16" height="16" src="assets/details.svg" alt="details"></button> {{item.description}}</td>
                     <!-- <td>{{item.name}}</td> -->
                     <td>{{item.origin}}</td>
                     <td>{{item.originalVolume}}</td>
                     <td>{{item.batch}}</td>
                     <td>
-                      <button class="btn btn-secondary rounded-pill" type="button" (click)="onUpdating(item?.id)">Edit</button>
+                      <button class="btn btn-secondary rounded-pill" type="button" (click)="onUpdating(item)">Edit</button>
                       <button class="btn btn-danger rounded-pill" type="button" (click)="deleteRecord(item?.id)">Delete</button>
                     </td>
                   </tr>

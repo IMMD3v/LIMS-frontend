@@ -19,6 +19,7 @@ export class LiquidListComponent implements OnInit{
 
   constructor(
     private liquidService: LiquidService,
+    private liquidShare: LiquidShareService,
     private router: Router,
   ) {}
 
@@ -42,13 +43,14 @@ export class LiquidListComponent implements OnInit{
     this.router.navigate(['/newLiquid/']);
   }
 
-  onDetails(id: number | undefined): void {
-    console.log(id);
-    this.router.navigate([`liquidDetails/${id}`]);
+  onDetails(item: LiquidDTO): void {
+    this.liquidShare.setLiquid(item);
+    this.router.navigate(['liquidDetails']);
   }
 
-  onUpdating(id: number | undefined): void {
-    this.router.navigate([`editLiquid/${id}`]);
+  onUpdating(item: LiquidDTO): void {
+    this.liquidShare.setLiquid(item);
+    this.router.navigate(['editLiquid']);
   }
 
   deleteRecord(id: number | undefined): void {

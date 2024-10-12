@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { ContainerDTO } from '../../models/container-dto';
 import { ContainerService } from '../../services/container.service';
 import { Router } from '@angular/router';
+import { ContainerShareService } from '../../services/container-share.service';
 
 @Component({
   selector: 'app-container-list',
@@ -16,7 +17,9 @@ export class ContainerListComponent {
   containers: ContainerDTO[] = [];
   totalRecords: number | undefined;
 
-  constructor(private containerService: ContainerService,
+  constructor(
+    private containerService: ContainerService,
+    private containerShare: ContainerShareService,
     private router: Router
   ) {}
 
@@ -40,13 +43,14 @@ export class ContainerListComponent {
     this.router.navigate(['/newContainer/']);
   }
 
-  onDetails(id: number | undefined): void {
-    console.log(id);
-    this.router.navigate([`contDetails/${id}`]);
+  onDetails(item: ContainerDTO): void {
+    this.containerShare.setContainer(item);
+    this.router.navigate(['contDetails']);
   }
 
-  onUpdating(id: number | undefined): void {
-    this.router.navigate([`editContainer/${id}`]);
+  onUpdating(item: ContainerDTO): void {
+    this.containerShare.setContainer(item);
+    this.router.navigate(['editContainer']);
   }
 
   deleteRecord(id: number | undefined): void {

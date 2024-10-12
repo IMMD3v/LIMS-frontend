@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { LiquidService } from '../../services/liquid.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { LiquidShareService } from '../../services/liquid-share.service';
 
 @Component({
   selector: 'app-liquid-new-edit',
@@ -20,7 +21,7 @@ export class LiquidNewEditComponent {
 
   constructor(
     private liquidService: LiquidService,
-    private activatedRoute: ActivatedRoute,
+    private liquidShare: LiquidShareService,
     private formBuilder: FormBuilder,
     private router: Router
   ) {
@@ -37,16 +38,15 @@ export class LiquidNewEditComponent {
   }
 
   private checkState(): void {
-    const recordId: number = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-    // console.log(id);
-    if (recordId != 0) {
+    const object: LiquidDTO | null = this.liquidShare.getLiquid();
+    if (object?.id) {
       console.log('hay id, estás editando');
       this.isEditing = true;
-      this.liquidService.details(recordId).subscribe({
+      this.liquidService.details(object.id).subscribe({
         next: (data: LiquidDTO) => {
           this.liquidDetails = data;
           this.newLiquidForm.patchValue({
-            id: recordId,
+            id: object?.id,
             description: data.description,
             origin: data.origin,
             originalVolume: data.originalVolume,
@@ -65,8 +65,9 @@ export class LiquidNewEditComponent {
   }
 
   cancelOperation():void {
-      this.router.navigate(['']);
-  }
+    this.router.navigate(['']);
+    this.liquidShare.removeLiquid();
+}
 
   public createLiquid() {
     if (this.newLiquidForm.valid) {
@@ -82,8 +83,8 @@ export class LiquidNewEditComponent {
         next: (data:any) => {
           alert('Registro creado!');
           this.router.navigate(['']);
-          console.log(data);
           this.newLiquidForm.reset();
+          this.liquidShare.removeLiquid();
         },
         //en cambio si produce un error:
         error: (error: HttpErrorResponse) => {
@@ -101,24 +102,27 @@ export class LiquidNewEditComponent {
     if (form.invalid) {
       alert('Hay errores en el formulario!');
     } else {
-    const itemId = Number(this.activatedRoute.snapshot.paramMap.get('id'))
-    const request: LiquidDTO = {
-      description: form.value.description,
-      origin: form.value.origin,
-      originalVolume: form.value.originalVolume,
-      batch: form.value.batch
-    }
-    console.log(itemId);
-      this.liquidService.update(itemId!, request).subscribe({
-        next: (data: any) => {
-          alert('Producto actualizado!');
-          this.router.navigate(['']);
-        },
-        error: (error: HttpErrorResponse) => {
-          alert(error.message);
-          console.log(error);
+      const object: LiquidDTO | null = this.liquidShare.getLiquid();
+      if (object?.id) {
+        const request: LiquidDTO = {
+          description: form.value.description,
+          origin: form.value.origin,
+          originalVolume: form.value.originalVolume,
+          batch: form.value.batch
         }
-      });
+        this.liquidService.update(object.id, request).subscribe({
+          next: (data: any) => {
+            alert('Producto actualizado!');
+            this.router.navigate(['']);
+            this.newLiquidForm.reset();
+            this.liquidShare.removeLiquid();
+          },
+          error: (error: HttpErrorResponse) => {
+            alert(error.message);
+            console.log(error);
+          }
+        });
+      }
     }
   }
 

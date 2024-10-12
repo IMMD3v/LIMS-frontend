@@ -29,7 +29,7 @@
       
                   <div class="col-sm-12 col-lg-10">
                     <label for="containerCapacity" class="form-label">Capacity</label>
-                    <input type="text" class="form-control" id="containerCapacity" placeholder="capacity in liters" value="" formControlName="containerCapacity">
+                    <input type="number" class="form-control" id="containerCapacity" placeholder="capacity in liters" value="" formControlName="containerCapacity">
                     <div class="invalid-feedback">
                       Valid last name is required.
                     </div>
@@ -42,7 +42,32 @@
                       Please enter your shipping address.
                     </div>
                   </div>
+                  @if (isEditing) {
+                    <div class="col-sm-12 col-lg-6">
+                      <label for="containerLiquidType" class="form-label">Liquid Type (debe cambiarse a lista de liquidos existentes)</label>
+                      <input type="text" class="form-control" id="containerLiquidType" placeholder="liquid contained" formControlName="containerLiquidType">
+                      <div class="invalid-feedback">
+                        Please enter your shipping address.
+                      </div>
+                    </div>
 
+                    <div class="col-sm-12 col-lg-6">
+                      <label for="containerUsedCapacity" class="form-label">Volumen Ocupado Actual</label>
+                      <input type="number" class="form-control" id="containerUsedCapacity" placeholder="volume occupied" formControlName="containerUsedCapacity">
+                      <div class="invalid-feedback">
+                        Please enter your shipping address.
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-lg-6">
+                      <label for="containerInUse" class="form-label">En uso</label>
+                      <input type="text" class="form-control" id="containerInUse" formControlName="containerInUse">
+                      <div class="invalid-feedback">
+                        Please enter your shipping address.
+                      </div>
+                    </div>
+                  }
+                    
                 </div>
       
                 <hr class="my-4">

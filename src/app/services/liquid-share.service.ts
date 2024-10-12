@@ -31,4 +31,8 @@ export class LiquidShareService {
       return null;
     }
   }
+
+  removeLiquid(): void {
+    sessionStorage.removeItem('selectedLiquid');
+  }
 }

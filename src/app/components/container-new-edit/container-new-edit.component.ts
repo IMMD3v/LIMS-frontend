@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ContainerService } from '../../services/container.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContainerDTO } from '../../models/container-dto';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ContainerShareService } from '../../services/container-share.service';
 
 @Component({
   selector: 'app-container-new-edit',
@@ -20,7 +21,7 @@ export class ContainerNewEditComponent implements OnInit{
 
   constructor(
     private containerService: ContainerService,
-    private activatedRoute: ActivatedRoute,
+    private containerShare: ContainerShareService,
     private formBuilder: FormBuilder,
     private router: Router
   ) {
@@ -33,23 +34,32 @@ export class ContainerNewEditComponent implements OnInit{
 
   ngOnInit(): void {
     this.checkState();
+    if (this.isEditing) {
+      // Agregar los campos adicionales cuando estás en modo edición
+      this.newContainerForm.addControl('containerUsedCapacity', new FormControl('', Validators.required));
+      this.newContainerForm.addControl('containerLiquidType', new FormControl('', Validators.required));
+      this.newContainerForm.addControl('containerInUse', new FormControl('', Validators.required));
+    }
   }
 
   private checkState(): void {
-    const recordId: number = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-    // console.log(id);
-    if (recordId != 0) {
+    const object: ContainerDTO | null = this.containerShare.getContainer();
+    if (object?.id) {
       console.log('hay id, estás editando');
       this.isEditing = true;
-      this.containerService.details(recordId).subscribe({
+      this.containerService.details(object.id).subscribe({
         next: (data: ContainerDTO) => {
           this.containerDetails = data;
           this.newContainerForm.patchValue({
-            id: recordId,
+            id: object.id,
             containerID: data.name,
             containerCapacity: data.capacity,
             containerMaterial: data.material,
-            containerAvailability: data.inUse
+            //admin update
+            containerInUse: data.inUse,
+            containerLiquidType: data.liquidType,
+            containerUsedCapacity: data.usedCapacity
+            
           })
         },
         error: (error: HttpErrorResponse) => {
@@ -65,6 +75,7 @@ export class ContainerNewEditComponent implements OnInit{
 
   cancelOperation():void {
       this.router.navigate(['']);
+      this.containerShare.removeContainer();
   }
 
   public createContainer() {
@@ -80,8 +91,8 @@ export class ContainerNewEditComponent implements OnInit{
         next: (data:any) => {
           alert('Registro creado!');
           this.router.navigate(['']);
-          console.log(data);
           this.newContainerForm.reset();
+          this.containerShare.removeContainer();
         },
         //en cambio si produce un error:
         error: (error: HttpErrorResponse) => {
@@ -99,23 +110,34 @@ export class ContainerNewEditComponent implements OnInit{
     if (form.invalid) {
       alert('Hay errores en el formulario!');
     } else {
-    const itemId = Number(this.activatedRoute.snapshot.paramMap.get('id'))
-    const request: ContainerDTO = {
-      name: form.value.containerID,
-      capacity: form.value.containerCapacity,
-      material: form.value.containerMaterial
-    }
-    console.log(itemId);
-      this.containerService.update(itemId!, request).subscribe({
-        next: (data: any) => {
-          alert('Producto actualizado!');
-          this.router.navigate(['']);
-        },
-        error: (error: HttpErrorResponse) => {
-          alert(error.message);
-          console.log(error);
+      const object: ContainerDTO | null = this.containerShare.getContainer();
+      if (object?.id) {
+        const request: ContainerDTO = {
+          name: form.value.containerID,
+          capacity: form.value.containerCapacity,
+          material: form.value.containerMaterial,
+          //for complete ADMIN update
+          liquidType: form.value.containerLiquidType,
+          usedCapacity: form.value.containerUsedCapacity,
+          inUse: form.value.containerInUse
         }
-      });
+
+        console.log(request);
+        this.containerService.update(object?.id, request).subscribe({
+          next: (data: any) => {
+            alert('Producto actualizado!');
+            this.router.navigate(['']);
+            this.newContainerForm.reset();
+            this.containerShare.removeContainer();
+          },
+          error: (error: HttpErrorResponse) => {
+            alert(error.message);
+            console.log(error);
+          }
+        });
+      } else {
+        alert('Error parsing reference!');
+      }
     }
   }
 

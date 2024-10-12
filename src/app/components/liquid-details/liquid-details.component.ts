@@ -15,41 +15,40 @@ import { LiquidShareService } from '../../services/liquid-share.service';
 export class LiquidDetailsComponent {
 
   liquidDetails: LiquidDTO | undefined;
+  isVolumeDepleted: boolean = false;
 
   constructor(
-    private liquidService: LiquidService,
-    private activatedRoute: ActivatedRoute,
     private router: Router,
     private liquidShare: LiquidShareService
   ) {}
 
   ngOnInit(): void {
-    this.getProductDetail();
+    this.getLiquidDetails();
+    this.checkVolume();
   }
 
-  getProductDetail() {
-    const id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-    if (id) {
-      this.liquidService.details(id).subscribe({
-        next: (data: LiquidDTO) => {
-          this.liquidDetails = data;
-          console.log(this.liquidDetails);
-        },
-        error: (error: HttpErrorResponse) => {
-          alert('Error al obtener los detalles del producto!');
-          console.log(error.message);
-        },
-      });
+  getLiquidDetails() {
+    const object: LiquidDTO | null = this.liquidShare.getLiquid();
+    if (object) {
+          this.liquidDetails = object;
     }
   }
 
   cancelOperation():void {
-      this.router.navigate(['']);
-  }
+    this.router.navigate(['']);
+    this.liquidShare.removeLiquid();
+}
 
   onLiquidMovements(item: LiquidDTO): void {
     this.liquidShare.setLiquid(item);
     this.router.navigate(['liquidMovements']);
+  }
+
+  checkVolume(): void {
+    const object: LiquidDTO | null = this.liquidShare.getLiquid();
+    if (object?.actualVolume == 0) {
+          this.isVolumeDepleted = true;
+    }
   }
 
 }

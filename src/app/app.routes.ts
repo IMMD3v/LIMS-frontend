@@ -9,12 +9,12 @@ import { LiquidMovementsComponent } from './components/liquid-movements/liquid-m
 
 export const routes: Routes = [
     {path: '', component: ContentComponent}, //should change later
-    { path: 'editContainer/:id', component: ContainerNewEditComponent},
+    { path: 'editContainer', component: ContainerNewEditComponent},
     { path: 'newContainer', component: ContainerNewEditComponent},
-    { path: 'contDetails/:id', component: ContainerDetailsComponent},
-    { path: 'liquidDetails/:id', component: LiquidDetailsComponent},
+    { path: 'contDetails', component: ContainerDetailsComponent},
+    { path: 'liquidDetails', component: LiquidDetailsComponent},
     { path: 'analysisDetails/:id', component: AnalysisDetailsComponent},
-    { path: 'editLiquid/:id', component: LiquidNewEditComponent},
+    { path: 'editLiquid', component: LiquidNewEditComponent},
     { path: 'newLiquid', component: LiquidNewEditComponent},
     { path: 'liquidMovements', component: LiquidMovementsComponent},
 ];
