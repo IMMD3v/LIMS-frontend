@@ -11,7 +11,7 @@
         <div class="h-100 p-5 text-bg-dark rounded-3">
           <h3>Description: {{liquidDetails?.description}}</h3>
           <h3>Origin: {{liquidDetails?.origin}}</h3>
-          <h3>Volume: {{liquidDetails?.volume}}</h3>
+          <h3>Original Volume: {{liquidDetails?.originalVolume}}</h3>
           <h3>Batch: {{liquidDetails?.batch}}</h3>
           <button class="btn btn-outline-light" type="button">Container Assignement</button>
         </div>
@@ -20,13 +20,12 @@
       <div class="col-md-12 col-lg-6">
         <div class="h-100 p-5 bg-body-tertiary border rounded-3">
           <h3>Contenedores Disponibles</h3>
-          <h5>Litros restantes a asignar: {{liquidDetails?.volume}}</h5>
+          <h5>Litros restantes a asignar: {{remainingVolume}}</h5>
           <p>Seleccione el o los contenedor(es) necesarios para almacenar el volúmen del líquido</p>
           <div class="list-group">
             <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <th scope="col">Selection</th>
                     <th scope="col">Container ID</th>
                     <th scope="col">Material</th>
                     <th scope="col">Capacity (Lts)</th>
@@ -35,18 +34,13 @@
                 </thead>
                 <tbody>
                     @for (item of emptyContainers; track item.id) {
-                        <tr>
-                            <td>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="{{item.id}}" (change)="toggleEditable($event, item.id)">
-                                </div>
-                            </td>
+                        <tr>                            
                             <td>{{item.name}}</td>
                             <td>{{item.material}}</td>
                             <td>{{item.capacity}}</td>
                             <td>
                               <button class="btn btn-primary rounded-pill px-3" type="button" (click)="onDetails(item.id)">Details</button>
-                              <button class="btn btn-success rounded-pill px-3" type="button" (change)="liquidAssignement($event, item.id)">Asignar</button>                            
+                              <button class="btn btn-success rounded-pill px-3" type="button" (click)="setLiquidToContainer(item.id)">Asignar</button>                            
                             </td>
                         </tr>
                     }

@@ -14,7 +14,8 @@ export class LiquidShareService {
       id: item.id,
       description: item.description,
       origin: item.origin,
-      volume: item.volume,
+      originalVolume: item.originalVolume,
+      actualVolume: item.actualVolume,
       batch: item.batch
     }
 

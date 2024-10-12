@@ -7,6 +7,8 @@ import { ContainerService } from '../../services/container.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LiquidIdDTO } from '../../models/liquid-id-dto';
 import { LiquidMovementService } from '../../services/liquid-movement.service';
+import { ContainerIdDTO } from '../../models/container-id-dto';
+import { RemainVolumeDTO } from '../../models/remain-volume-dto';
 
 @Component({
   selector: 'app-liquid-movements',
@@ -19,6 +21,7 @@ export class LiquidMovementsComponent implements OnInit{
 
   liquidDetails: LiquidDTO | undefined;
   emptyContainers: ContainerDTO[] | undefined;
+  remainingVolume: number | undefined;
 
   constructor(
     private liquidShare: LiquidShareService,
@@ -37,8 +40,8 @@ export class LiquidMovementsComponent implements OnInit{
     const object: LiquidIdDTO | null = this.liquidShare.getLiquid();
     if (object) {
       this.liquidMovService.capture(object).subscribe({
-        next: (data: any) => {
-          console.log('ok');
+        next: (data: RemainVolumeDTO) => {
+          this.remainingVolume = data.volume
         },
         error: (error: any) => {
           console.log('algo mal ocurrió');
@@ -71,7 +74,7 @@ export class LiquidMovementsComponent implements OnInit{
 
   }
 
-  cancelOperation():void {
+cancelOperation():void {
     this.router.navigate(['']);
 }
 
@@ -80,12 +83,21 @@ onDetails(id: number | undefined): void {
   this.router.navigate([`contDetails/${id}`]);
 }
 
-toggleEditable(event: any, itemId: number | undefined): void {
-  console.log(event.target.checked);
-}
-
-liquidAssignement(event: any, itemId: number | undefined): void {
-  console.log(event.target.checked);
+setLiquidToContainer(itemId: number | undefined): void {
+  const object: ContainerIdDTO = {
+    id: itemId
+  }
+  this.liquidMovService.setLiquid(object).subscribe({
+    next: (data: RemainVolumeDTO) => {
+      console.log('ok');
+      this.remainingVolume = data.volume;
+      this.getEmptyContainers();
+    },
+    error: (error: any) => {
+      console.log('not ok :(')
+    }
+  })
+  console.log('end of method');
 }
 
 }

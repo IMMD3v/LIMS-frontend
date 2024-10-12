@@ -30,17 +30,10 @@ export class LiquidDetailsComponent {
   getProductDetail() {
     const id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     if (id) {
-      // this.isEditing = true;
       this.liquidService.details(id).subscribe({
         next: (data: LiquidDTO) => {
           this.liquidDetails = data;
           console.log(this.liquidDetails);
-          // this.newItemForm.patchValue({
-          //   id: Number(this.activatedRoute.snapshot.paramMap.get('id')),
-          //   itemName: data.itemName,
-          //   itemSellPrice: data.itemSellPrice,
-          //   itemStock: data.itemStock
-          // });
         },
         error: (error: HttpErrorResponse) => {
           alert('Error al obtener los detalles del producto!');

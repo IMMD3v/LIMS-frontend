@@ -27,7 +27,7 @@ export class LiquidNewEditComponent {
     this.newLiquidForm = this.formBuilder.group({
       description: ['', Validators.required],
       origin: ['', Validators.required],
-      volume: ['', Validators.required],
+      originalVolume: ['', Validators.required],
       batch: ['', Validators.required]
     })
   }
@@ -49,7 +49,7 @@ export class LiquidNewEditComponent {
             id: recordId,
             description: data.description,
             origin: data.origin,
-            volume: data.volume,
+            originalVolume: data.originalVolume,
             batch: data.batch
           })
         },
@@ -73,7 +73,7 @@ export class LiquidNewEditComponent {
       const request: LiquidDTO = {   
         description: this.newLiquidForm.value.description,
         origin: this.newLiquidForm.value.origin,
-        volume: this.newLiquidForm.value.volume,
+        originalVolume: this.newLiquidForm.value.originalVolume,
         batch: this.newLiquidForm.value.batch,
       }
       
@@ -105,7 +105,7 @@ export class LiquidNewEditComponent {
     const request: LiquidDTO = {
       description: form.value.description,
       origin: form.value.origin,
-      volume: form.value.volume,
+      originalVolume: form.value.originalVolume,
       batch: form.value.batch
     }
     console.log(itemId);

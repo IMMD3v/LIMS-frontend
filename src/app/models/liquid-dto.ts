@@ -2,6 +2,7 @@ export interface LiquidDTO {
     id?: number;
     description: string;
     origin: string;
-    volume: number;
+    originalVolume: number;
+    actualVolume?: number;
     batch: string;
 }
