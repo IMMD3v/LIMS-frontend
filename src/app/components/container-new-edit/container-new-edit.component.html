@@ -44,10 +44,15 @@
                   </div>
                   @if (isEditing) {
                     <div class="col-sm-12 col-lg-6">
-                      <label for="containerLiquidType" class="form-label">Liquid Type (debe cambiarse a lista de liquidos existentes)</label>
-                      <input type="text" class="form-control" id="containerLiquidType" placeholder="liquid contained" formControlName="containerLiquidType">
+                      <label for="containerLiquidType" class="form-label">Seleccione Líquido</label>
+                      <select class="form-select" id="containerLiquidType" required="" formControlName="containerLiquidType">
+                        <option value="" disabled selected>Choose...</option>
+                        @for (item of liquidList; track item.id) {
+                          <option value="{{item.description}}">{{item.description}}</option>
+                        }
+                      </select>
                       <div class="invalid-feedback">
-                        Please enter your shipping address.
+                        Please select a valid liquid.
                       </div>
                     </div>
 

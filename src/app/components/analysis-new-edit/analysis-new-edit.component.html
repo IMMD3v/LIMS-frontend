@@ -1,0 +1,103 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <body class="">
+        <main>
+          <div class="py-5 text-center">
+            @if (!isEditing) {
+              <h2>Formulario Nuevo Container</h2>
+              <p class="lead">Los campos del formulario son obligatorios para dar de alta un nuevo container. Por favor complete todos.</p>
+            }
+            @if (isEditing) {
+              <h2>Editar Container</h2>
+              <p class="lead">Los campos del formulario son obligatorios para actualizar el container. Por favor complete todos.</p>
+            }
+          </div>
+
+          <div class="row g-5">
+            <div class="col-md-12">
+              <h4 class="mb-3">New Container Form</h4>
+              <form class="needs-validation" novalidate="" [formGroup]="newAnalysisForm">
+                <div class="row g-3">
+
+                  <div class="col-md-12 col-lg-3">
+                    <label for="liquid" class="form-label">Seleccione Líquido</label>
+                    <select class="form-select" id="liquid" required="" formControlName="liquid">
+                      <option value="" disabled selected>Choose...</option>
+                      @for (item of liquidList; track item.id) {
+                        <option value="{{item.description}}">{{item.description}}</option>
+                      }
+                    </select>
+                    <div class="invalid-feedback">
+                      Please select a valid liquid.
+                    </div>
+                  </div>
+      
+                  <div class="col-sm-12 col-lg-9">
+                    <label for="requestedBy" class="form-label">Solicitante</label>
+                    <input type="text" class="form-control" id="requestedBy" placeholder="capacity in liters" value="" formControlName="requestedBy">
+                    <div class="invalid-feedback">
+                      Valid last name is required.
+                    </div>
+                  </div>
+                  @if (isEditing) {
+                  
+                  <div class="col-sm-12 col-lg-6">
+                      <label for="status" class="form-label">Status Solicitud</label>
+                      <input type="text" class="form-control" id="status" placeholder="construction material" formControlName="status">
+                      <div class="invalid-feedback">
+                          Please enter your shipping address.
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-6">
+                      <label for="requestDate" class="form-label">Fecha Creacion Solicitud</label>
+                      <input type="text" class="form-control" id="requestDate" placeholder="liquid contained" formControlName="requestDate">
+                      <div class="invalid-feedback">
+                        Please enter your shipping address.
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-lg-6">
+                      <label for="completionDate" class="form-label">Fecha Finalización</label>
+                      <input type="text" class="form-control" id="completionDate" placeholder="volume occupied" formControlName="completionDate">
+                      <div class="invalid-feedback">
+                        Please enter your shipping address.
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-lg-6">
+                      <label for="pH" class="form-label">pH</label>
+                      <input type="number" class="form-control" id="pH" placeholder="pH" formControlName="pH">
+                      <div class="invalid-feedback">
+                        Please enter your shipping address.
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 col-lg-6">
+                        <label for="turbidity" class="form-label">Turbidity</label>
+                        <input type="number" class="form-control" id="turbidity" formControlName="turbidity">
+                        <div class="invalid-feedback">
+                          Please enter your shipping address.
+                        </div>
+                      </div>
+                  }
+                    
+                </div>
+      
+                <hr class="my-4">
+                @if (!isEditing) {
+                  <button class="w-100 btn btn-primary btn-lg" type="submit"(click)="createAnalysis()">Create Container</button>
+                }
+                @if (isEditing) {
+                  <button class="w-100 btn btn-primary btn-lg" type="submit"(click)="updateAnalysis(newAnalysisForm)">Update Container</button>
+                }
+                <button type="button" class="w-100 btn btn-danger btn-lg" (click)="cancelOperation()">Cancelar</button>
+              </form>
+            </div>
+          </div>
+        </main>
+      </body>
+      </div>
+    </div>
+</div>
+

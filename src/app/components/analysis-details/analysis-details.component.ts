@@ -3,6 +3,7 @@ import { AnalysisRequestDTO } from '../../models/analysis-req-dto';
 import { AnalysisRequestService } from '../../services/analysis-request.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AnalysisReqShareService } from '../../services/analysis-req-share.service';
 
 @Component({
   selector: 'app-analysis-details',
@@ -17,7 +18,7 @@ export class AnalysisDetailsComponent {
 
   constructor(
     private analysisService: AnalysisRequestService,
-    private activatedRoute: ActivatedRoute,
+    private analysisShare: AnalysisReqShareService,
     private router: Router
   ) {}
 
@@ -26,30 +27,33 @@ export class AnalysisDetailsComponent {
   }
 
   getAnalysisDetail() {
-    const id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-    if (id) {
-      // this.isEditing = true;
-      this.analysisService.details(id).subscribe({
-        next: (data: AnalysisRequestDTO) => {
-          this.analysisDetails = data;
+    const object: AnalysisRequestDTO | null = this.analysisShare.getAnalysis();
+    if (object) {
+          this.analysisDetails = object;
           console.log(this.analysisDetails);
-          // this.newItemForm.patchValue({
-          //   id: Number(this.activatedRoute.snapshot.paramMap.get('id')),
-          //   itemName: data.itemName,
-          //   itemSellPrice: data.itemSellPrice,
-          //   itemStock: data.itemStock
-          // });
-        },
-        error: (error: HttpErrorResponse) => {
-          alert('Error al obtener los detalles del producto!');
-          console.log(error.message);
-        },
-      });
     }
   }
 
+  // getAnalysisDetail() {
+  //   const id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+  //   if (id) {
+  //     // this.isEditing = true;
+  //     this.analysisService.details(id).subscribe({
+  //       next: (data: AnalysisRequestDTO) => {
+  //         this.analysisDetails = data;
+  //         console.log(this.analysisDetails);
+  //       },
+  //       error: (error: HttpErrorResponse) => {
+  //         alert('Error al obtener los detalles del producto!');
+  //         console.log(error.message);
+  //       },
+  //     });
+  //   }
+  // }
+
   cancelOperation():void {
-      this.router.navigate(['']);
-  }
+    this.router.navigate(['']);
+    this.analysisShare.removeAnalysis();
+}
 
 }

@@ -5,6 +5,8 @@ import { ContainerDTO } from '../../models/container-dto';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ContainerShareService } from '../../services/container-share.service';
+import { LiquidService } from '../../services/liquid.service';
+import { LiquidDTO } from '../../models/liquid-dto';
 
 @Component({
   selector: 'app-container-new-edit',
@@ -18,8 +20,10 @@ export class ContainerNewEditComponent implements OnInit{
   isEditing: boolean = false;
   containerDetails: ContainerDTO | undefined;
   newContainerForm: FormGroup;
+  liquidList: LiquidDTO[] | undefined;
 
   constructor(
+    private liquidService: LiquidService,
     private containerService: ContainerService,
     private containerShare: ContainerShareService,
     private formBuilder: FormBuilder,
@@ -34,6 +38,7 @@ export class ContainerNewEditComponent implements OnInit{
 
   ngOnInit(): void {
     this.checkState();
+    this.getLiquidList();
     if (this.isEditing) {
       // Agregar los campos adicionales cuando estás en modo edición
       this.newContainerForm.addControl('containerUsedCapacity', new FormControl('', Validators.required));
@@ -71,6 +76,17 @@ export class ContainerNewEditComponent implements OnInit{
       console.log('id es 0, estas creando');
     }
     console.log('end of method');
+  }
+
+  getLiquidList():void {
+    this.liquidService.listAll().subscribe({
+      next: (data: LiquidDTO[]) => {
+        this.liquidList = data;
+      },
+      error: (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    })
   }
 
   cancelOperation():void {

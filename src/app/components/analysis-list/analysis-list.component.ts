@@ -3,6 +3,7 @@ import { AnalysisRequestDTO } from '../../models/analysis-req-dto';
 import { AnalysisRequestService } from '../../services/analysis-request.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AnalysisReqShareService } from '../../services/analysis-req-share.service';
 
 @Component({
   selector: 'app-analysis-list',
@@ -16,7 +17,9 @@ export class AnalysisListComponent {
   analysis: AnalysisRequestDTO[] = [];
   totalRecords: number | undefined;
 
-  constructor(private analysisService: AnalysisRequestService,
+  constructor(
+    private analysisService: AnalysisRequestService,
+    private analysisShare: AnalysisReqShareService,
     private router: Router
   ) {}
 
@@ -27,7 +30,9 @@ export class AnalysisListComponent {
   getAllAnalysis(): void {
     this.analysisService.listAll().subscribe({
       next: (data: AnalysisRequestDTO[]) => {
+        console.log(data)
         this.analysis = data;
+        console.log(this.analysis);
         this.totalRecords = this.analysis.length;
       },
       error: (error: any) => {
@@ -37,16 +42,17 @@ export class AnalysisListComponent {
   }
 
   onCreateNewAnalysis(): void {
-    this.router.navigate(['/newContainer/']);
+    this.router.navigate(['/newAnalysis/']);
   }
 
-  onDetails(id: number | undefined): void {
-    console.log(id);
-    this.router.navigate([`analysisDetails/${id}`]);
+  onDetails(item: AnalysisRequestDTO): void {
+    this.analysisShare.setAnalysis(item);
+    this.router.navigate(['analysisDetails']);
   }
 
-  onUpdating(id: number | undefined): void {
-    this.router.navigate([`editContainer/${id}`]);
+  onUpdating(item: AnalysisRequestDTO): void {
+    this.analysisShare.setAnalysis(item);
+    this.router.navigate(['editAnalysis']);
   }
 
   deleteRecord(id: number | undefined): void {
