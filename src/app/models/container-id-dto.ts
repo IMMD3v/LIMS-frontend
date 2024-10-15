@@ -1,3 +1,4 @@
 export interface ContainerIdDTO {
-    id?: number;
+    containerId?: number;
+    liquidId?: number;
 }

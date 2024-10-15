@@ -20,8 +20,9 @@
       <div class="col-md-12 col-lg-6">
         <div class="h-100 p-5 bg-body-tertiary border rounded-3">
           <h3>Protocol Detail</h3>
-          <h4>Sample: <b>{{analysisDetails?.liquid}}</b></h4>
-          <p>pH: <b>{{analysisDetails?.pH}}</b></p>
+          <h4>Sample: <b>{{getLiquidName(analysisDetails?.liquidId)}}</b></h4>
+          <h4>Container: <b>{{getContainerName(analysisDetails?.containerId)}}</b></h4>
+          <p>pH: <b>{{analysisDetails?.powerHydrogen}}</b></p>
           <p>Turbidity: <b>{{analysisDetails?.turbidity}}</b></p>
           <button class="btn btn-outline-secondary" type="button">Example button</button>
         </div>

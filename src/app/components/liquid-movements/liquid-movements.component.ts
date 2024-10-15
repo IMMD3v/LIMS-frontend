@@ -85,9 +85,10 @@ onDetails(item: ContainerDTO): void {
   this.router.navigate(['contDetails']);
 }
 
-setLiquidToContainer(itemId: number | undefined): void {
+setLiquidToContainer(containerId: number | undefined, liquidId: number | undefined): void {
   const object: ContainerIdDTO = {
-    id: itemId
+    containerId: containerId,
+    liquidId: liquidId
   }
   this.liquidMovService.setLiquid(object).subscribe({
     next: (data: RemainVolumeDTO) => {

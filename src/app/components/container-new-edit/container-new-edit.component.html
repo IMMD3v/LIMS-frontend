@@ -44,11 +44,11 @@
                   </div>
                   @if (isEditing) {
                     <div class="col-sm-12 col-lg-6">
-                      <label for="containerLiquidType" class="form-label">Seleccione Líquido</label>
-                      <select class="form-select" id="containerLiquidType" required="" formControlName="containerLiquidType">
-                        <option value="" disabled selected>Choose...</option>
+                      <label for="containerLiquidId" class="form-label">ADMIN FEATURE! NO DESCUENTA! Seleccione Líquido</label>
+                      <select class="form-select" id="containerLiquidId" required="" formControlName="containerLiquidId">
+                        <option value="0" disabled selected>No asignado</option>
                         @for (item of liquidList; track item.id) {
-                          <option value="{{item.description}}">{{item.description}}</option>
+                          <option value="{{item.id}}">{{item.description}}</option>
                         }
                       </select>
                       <div class="invalid-feedback">

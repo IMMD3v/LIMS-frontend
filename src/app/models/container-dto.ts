@@ -5,6 +5,6 @@ export interface ContainerDTO {
     material: string;
     //for ADMIN complete update
     usedCapacity?: number;
-    liquidType?: string;
+    liquidId?: string;
     inUse?: boolean;
 }

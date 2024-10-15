@@ -31,7 +31,7 @@
                     <td><button class="btn btn-outline-primary" (click)="onDetails(item)"><img class="bi" width="16" height="16" src="assets/details.svg" alt="details"></button> {{item.name}}</td>
                     <!-- <td>{{item.name}}</td> -->
                     <td>{{item.capacity}}</td>
-                    <td>{{item.liquidType}}</td>
+                    <td>{{ getLiquidName(item.liquidId)}}</td>
                     <td>
                       <button class="btn btn-secondary rounded-pill" type="button" (click)="onUpdating(item)">Edit</button>
                       <button class="btn btn-danger rounded-pill" type="button" (click)="deleteRecord(item?.id)">Delete</button>

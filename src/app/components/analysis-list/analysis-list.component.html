@@ -22,8 +22,6 @@
                   <th scope="col">STATUS</th>
                   <th scope="col">REQUEST DATE</th>
                   <th scope="col">REQUEST BY</th>
-                  <th scope="col">pH</th>
-                  <th scope="col">Turbidity</th>
                   <th scope="col">ADMIN OPTIONS</th>
                 </tr>
               </thead>
@@ -35,8 +33,6 @@
                     <td>{{item.status}}</td>
                     <td>{{item.requestDate}}</td>
                     <td>{{item.requestedBy}}</td>
-                    <td>{{item.ph}}</td>
-                    <td>{{item.turbidity}}</td>
                     <td>
                       <button class="btn btn-secondary rounded-pill" type="button" (click)="onUpdating(item)">Edit</button>
                       <button class="btn btn-danger rounded-pill" type="button" (click)="deleteRecord(item?.id)">Delete</button>

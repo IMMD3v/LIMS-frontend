@@ -21,16 +21,13 @@
                 <div class="row g-3">
 
                   <div class="col-md-12 col-lg-3">
-                    <label for="liquid" class="form-label">Seleccione Líquido</label>
-                    <select class="form-select" id="liquid" required="" formControlName="liquid">
+                    <label for="containerId" class="form-label">Seleccione Contenedor</label>
+                    <select class="form-select" id="containerId" required="" formControlName="containerId">
                       <option value="" disabled selected>Choose...</option>
-                      @for (item of liquidList; track item.id) {
-                        <option value="{{item.description}}">{{item.description}}</option>
+                      @for (item of containerList; track item.id) {
+                        <option value="{{item.id}}">{{item.name}}</option>
                       }
                     </select>
-                    <div class="invalid-feedback">
-                      Please select a valid liquid.
-                    </div>
                   </div>
       
                   <div class="col-sm-12 col-lg-9">
@@ -66,8 +63,8 @@
                     </div>
 
                     <div class="col-sm-12 col-lg-6">
-                      <label for="pH" class="form-label">pH</label>
-                      <input type="number" class="form-control" id="pH" placeholder="pH" formControlName="pH">
+                      <label for="powerHydrogen" class="form-label">pH</label>
+                      <input type="number" class="form-control" id="powerHydrogen" placeholder="pH" formControlName="powerHydrogen">
                       <div class="invalid-feedback">
                         Please enter your shipping address.
                       </div>

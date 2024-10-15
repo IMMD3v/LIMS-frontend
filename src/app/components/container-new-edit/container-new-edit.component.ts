@@ -42,7 +42,7 @@ export class ContainerNewEditComponent implements OnInit{
     if (this.isEditing) {
       // Agregar los campos adicionales cuando estás en modo edición
       this.newContainerForm.addControl('containerUsedCapacity', new FormControl('', Validators.required));
-      this.newContainerForm.addControl('containerLiquidType', new FormControl('', Validators.required));
+      this.newContainerForm.addControl('containerLiquidId', new FormControl('', Validators.required));
       this.newContainerForm.addControl('containerInUse', new FormControl('', Validators.required));
     }
   }
@@ -62,7 +62,7 @@ export class ContainerNewEditComponent implements OnInit{
             containerMaterial: data.material,
             //admin update
             containerInUse: data.inUse,
-            containerLiquidType: data.liquidType,
+            containerLiquidId: data.liquidId,
             containerUsedCapacity: data.usedCapacity
             
           })
@@ -133,7 +133,7 @@ export class ContainerNewEditComponent implements OnInit{
           capacity: form.value.containerCapacity,
           material: form.value.containerMaterial,
           //for complete ADMIN update
-          liquidType: form.value.containerLiquidType,
+          liquidId: form.value.containerLiquidId,
           usedCapacity: form.value.containerUsedCapacity,
           inUse: form.value.containerInUse
         }

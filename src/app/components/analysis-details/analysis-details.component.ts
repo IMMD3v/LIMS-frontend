@@ -4,6 +4,10 @@ import { AnalysisRequestService } from '../../services/analysis-request.service'
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AnalysisReqShareService } from '../../services/analysis-req-share.service';
+import { ContainerService } from '../../services/container.service';
+import { ContainerDTO } from '../../models/container-dto';
+import { LiquidService } from '../../services/liquid.service';
+import { LiquidDTO } from '../../models/liquid-dto';
 
 @Component({
   selector: 'app-analysis-details',
@@ -15,15 +19,21 @@ import { AnalysisReqShareService } from '../../services/analysis-req-share.servi
 export class AnalysisDetailsComponent {
 
   analysisDetails: AnalysisRequestDTO | undefined;
+  liquidMap: {[key: string]: string} = {};
+  containerMap: {[key: string]: string} = {};
 
   constructor(
     private analysisService: AnalysisRequestService,
+    private liquidService: LiquidService,
+    private containerService: ContainerService,
     private analysisShare: AnalysisReqShareService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.getAnalysisDetail();
+    this.getAllContainers();
+    this.getAllLiquids();
   }
 
   getAnalysisDetail() {
@@ -34,22 +44,41 @@ export class AnalysisDetailsComponent {
     }
   }
 
-  // getAnalysisDetail() {
-  //   const id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-  //   if (id) {
-  //     // this.isEditing = true;
-  //     this.analysisService.details(id).subscribe({
-  //       next: (data: AnalysisRequestDTO) => {
-  //         this.analysisDetails = data;
-  //         console.log(this.analysisDetails);
-  //       },
-  //       error: (error: HttpErrorResponse) => {
-  //         alert('Error al obtener los detalles del producto!');
-  //         console.log(error.message);
-  //       },
-  //     });
-  //   }
-  // }
+  getAllContainers(): void {
+    this.containerService.listAll().subscribe({
+      next: (data: ContainerDTO[]) => {
+        data.forEach(
+          container => {
+          this.containerMap[container.id!] = container.name;
+        })
+      },
+      error: (error: any) => {
+        console.log('error fetching data!');
+      }
+    })
+  }
+
+  getAllLiquids(): void {
+    this.liquidService.listAll().subscribe({
+      next: (data: LiquidDTO[]) => {
+        data.forEach(
+          liquid => {
+          this.liquidMap[liquid.id!] = liquid.description;
+        })
+      },
+      error: (error: any) => {
+        console.log('error fetching data!');
+      }
+    })
+  }
+
+  getContainerName(containerId: number | undefined): string {
+    return this.containerMap[containerId!] || 'no asignado';
+  }
+
+  getLiquidName(liquidId: number | undefined): string {
+    return this.liquidMap[liquidId!] || 'no asignado';
+  }
 
   cancelOperation():void {
     this.router.navigate(['']);

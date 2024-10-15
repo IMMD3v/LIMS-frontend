@@ -16,7 +16,7 @@ export class ContainerShareService {
       capacity: item.capacity,
       material: item.material,
       inUse: item.inUse,
-      liquidType: item.liquidType,
+      liquidId: item.liquidId,
       usedCapacity: item.usedCapacity
     }
 

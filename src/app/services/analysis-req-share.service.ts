@@ -16,8 +16,9 @@ export class AnalysisReqShareService {
       requestDate: item.requestDate,
       requestedBy: item.requestedBy,
       completionDate: item.completionDate,
-      liquid: item.liquid,
-      pH: item.ph,
+      liquidId: item.liquidId,
+      containerId: item.containerId,
+      powerHydrogen: item.powerHydrogen,
       turbidity: item.turbidity
     }
 

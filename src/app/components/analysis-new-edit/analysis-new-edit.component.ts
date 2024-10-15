@@ -5,8 +5,9 @@ import { AnalysisRequestService } from '../../services/analysis-request.service'
 import { AnalysisReqShareService } from '../../services/analysis-req-share.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ContainerService } from '../../services/container.service';
+import { ContainerDTO } from '../../models/container-dto';
 import { LiquidService } from '../../services/liquid.service';
-import { LiquidDTO } from '../../models/liquid-dto';
 
 @Component({
   selector: 'app-analysis-new-edit',
@@ -20,10 +21,10 @@ export class AnalysisNewEditComponent {
   isEditing: boolean = false;
   analysisDetails: AnalysisRequestDTO | undefined;
   newAnalysisForm: FormGroup;
-  liquidList: LiquidDTO[] | undefined;
+  containerList: ContainerDTO[] | undefined;
 
   constructor(
-    private liquidService: LiquidService,
+    private containerService: ContainerService,
     private analysisService: AnalysisRequestService,
     private analysisShare: AnalysisReqShareService,
     private formBuilder: FormBuilder,
@@ -31,19 +32,20 @@ export class AnalysisNewEditComponent {
   ) {
     this.newAnalysisForm = this.formBuilder.group({
       requestedBy: ['', Validators.required],
-      liquid: ['', Validators.required]
+      liquidId: ['', Validators.required],
+      containerId: ['', Validators.required]
     })
   }
 
   ngOnInit(): void {
     this.checkState();
-    this.getLiquidList();
+    this.getContainerList();
     if (this.isEditing) {
       // Agregar los campos adicionales cuando estás en modo edición
       this.newAnalysisForm.addControl('status', new FormControl('', Validators.required));
       this.newAnalysisForm.addControl('requestDate', new FormControl('', Validators.required));
       this.newAnalysisForm.addControl('completionDate', new FormControl('', Validators.required));
-      this.newAnalysisForm.addControl('pH', new FormControl('', Validators.required));
+      this.newAnalysisForm.addControl('powerHydrogen', new FormControl('', Validators.required));
       this.newAnalysisForm.addControl('turbidity', new FormControl('', Validators.required));
     }
   }
@@ -59,12 +61,13 @@ export class AnalysisNewEditComponent {
           this.newAnalysisForm.patchValue({
             id: object.id,
             requestedBy: data.requestedBy,
-            liquid: data.liquid,
+            liquidId: data.liquidId,
+            containerId: data.containerId,
             //admin update
             status: data.status,
             requestDate: data.requestDate,
             completionDate: data.completionDate,
-            pH: data.ph,
+            powerHydrogen: data.powerHydrogen,
             turbidity: data.turbidity,
             
           })
@@ -80,10 +83,10 @@ export class AnalysisNewEditComponent {
     console.log('end of method');
   }
 
-  getLiquidList():void {
-    this.liquidService.listAll().subscribe({
-      next: (data: LiquidDTO[]) => {
-        this.liquidList = data;
+  getContainerList():void {
+    this.containerService.listAllInUse().subscribe({
+      next: (data: ContainerDTO[]) => {
+        this.containerList = data;
       },
       error: (error: HttpErrorResponse) => {
         console.log(error);
@@ -100,7 +103,8 @@ export class AnalysisNewEditComponent {
     if (this.newAnalysisForm.valid) {
       const request: AnalysisRequestDTO = {   
         requestedBy: this.newAnalysisForm.value.requestedBy,
-        liquid: this.newAnalysisForm.value.liquid
+        liquidId: this.newAnalysisForm.value.liquidId,
+        containerId: this.newAnalysisForm.value.containerId
       }
       console.log(request);
       this.analysisService.create(request).subscribe({
@@ -130,13 +134,14 @@ export class AnalysisNewEditComponent {
       const object: AnalysisRequestDTO | null = this.analysisShare.getAnalysis();
       if (object?.id) {
         const request: AnalysisRequestDTO = {
-          liquid: form.value.liquid,
+          liquidId: form.value.liquid,
+          containerId: form.value.containerId,
           requestedBy: form.value.requestedBy,
           completionDate: form.value.completionDate,
           requestDate: form.value.requestDate,
           status: form.value.status,
           //analysis protocol
-          ph: form.value.pH,
+          powerHydrogen: form.value.powerHydrogen,
           turbidity: form.value.turbidity
         }
 
