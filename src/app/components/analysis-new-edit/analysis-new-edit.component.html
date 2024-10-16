@@ -20,17 +20,22 @@
               <form class="needs-validation" novalidate="" [formGroup]="newAnalysisForm">
                 <div class="row g-3">
 
-                  <div class="col-md-12 col-lg-3">
+                  <div class="col-md-12 col-lg-2">
                     <label for="containerId" class="form-label">Seleccione Contenedor</label>
-                    <select class="form-select" id="containerId" required="" formControlName="containerId">
+                    <select class="form-select" id="containerId" required="" formControlName="containerId" (change)="copySelection($event)">
                       <option value="" disabled selected>Choose...</option>
                       @for (item of containerList; track item.id) {
                         <option value="{{item.id}}">{{item.name}}</option>
                       }
                     </select>
                   </div>
+
+                  <div class="col-md-12 col-lg-2">
+                    <label for="liquidId" class="form-label">Liquido Actual</label>
+                    <input type="text" class="form-control" id="liquidId" required="" formControlName="liquidId" readonly>
+                  </div>
       
-                  <div class="col-sm-12 col-lg-9">
+                  <div class="col-sm-12 col-lg-8">
                     <label for="requestedBy" class="form-label">Solicitante</label>
                     <input type="text" class="form-control" id="requestedBy" placeholder="capacity in liters" value="" formControlName="requestedBy">
                     <div class="invalid-feedback">

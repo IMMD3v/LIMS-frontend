@@ -134,7 +134,7 @@ export class AnalysisNewEditComponent {
       const object: AnalysisRequestDTO | null = this.analysisShare.getAnalysis();
       if (object?.id) {
         const request: AnalysisRequestDTO = {
-          liquidId: form.value.liquid,
+          liquidId: form.value.liquidId,
           containerId: form.value.containerId,
           requestedBy: form.value.requestedBy,
           completionDate: form.value.completionDate,
@@ -161,6 +161,16 @@ export class AnalysisNewEditComponent {
       } else {
         alert('Error parsing reference!');
       }
+    }
+  }
+
+  copySelection(event: Event): void {
+    console.log(event)
+    const selectedContId = (event.target as HTMLSelectElement).value;
+    const selected = this.containerList?.find(container => container.id ==+selectedContId);
+
+    if (selected) {
+      this.newAnalysisForm.patchValue({liquidId: selected.liquidId})
     }
   }
 
