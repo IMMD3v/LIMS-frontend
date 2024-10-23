@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { LiquidDTO } from '../../models/liquid-dto';
-import { LiquidService } from '../../services/liquid.service';
+import { LiquidDTO } from '../../../models/liquid-dto';
+import { LiquidService } from '../../../services/liquid.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { LiquidShareService } from '../../services/liquid-share.service';
+import { LiquidShareService } from '../../../services/liquid-share.service';
 
 @Component({
   selector: 'app-liquid-list',

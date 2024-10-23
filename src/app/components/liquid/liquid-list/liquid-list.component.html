@@ -1,0 +1,57 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-sm-12 col-md-9">
+                <h2>Liquid List</h2>
+              </div>
+              <div class="col-sm-12 col-md-3">
+                <button type="button" class="btn btn-primary" (click)="onCreateNewLiquid()">New Liquid</button>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <!-- <th scope="col">DETAILS</th> -->
+                      <th scope="col">LIQUID DESCRIPTION</th>
+                      <th scope="col">ORIGIN</th>
+                      <th scope="col">VOLUME</th>
+                      <th scope="col">BATCH</th>
+                      <th scope="col">ADMIN OPTIONS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (item of liquids; track item.id) {
+                      <tr>
+                        <td><button class="btn btn-outline-primary" (click)="onDetails(item)"><img class="bi" width="16" height="16" src="assets/details.svg" alt="details"></button> {{item.description}}</td>
+                        <!-- <td>{{item.name}}</td> -->
+                        <td>{{item.origin}}</td>
+                        <td>{{item.originalVolume}}</td>
+                        <td>{{item.batch}}</td>
+                        <td>
+                          <button class="btn btn-secondary rounded-pill mb-1 mx-1 respB" type="button" (click)="onUpdating(item)">Edit</button>
+                          <button class="btn btn-danger rounded-pill mb-1 respB" type="button" (click)="deleteRecord(item?.id)">Delete</button>
+                        </td>
+                      </tr>
+                    }
+                      
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-body-secondary">
+            {{totalRecords}} record(s) found
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+

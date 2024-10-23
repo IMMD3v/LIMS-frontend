@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { AnalysisRequestDTO } from '../../models/analysis-req-dto';
+import { AnalysisRequestDTO } from '../../../models/analysis-req-dto';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AnalysisRequestService } from '../../services/analysis-request.service';
-import { AnalysisReqShareService } from '../../services/analysis-req-share.service';
+import { AnalysisRequestService } from '../../../services/analysis-request.service';
+import { AnalysisReqShareService } from '../../../services/analysis-req-share.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ContainerService } from '../../services/container.service';
-import { ContainerDTO } from '../../models/container-dto';
-import { LiquidService } from '../../services/liquid.service';
+import { ContainerService } from '../../../services/container.service';
+import { ContainerDTO } from '../../../models/container-dto';
 
 @Component({
   selector: 'app-analysis-new-edit',

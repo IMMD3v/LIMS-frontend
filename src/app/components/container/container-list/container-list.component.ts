@@ -1,11 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { ContainerDTO } from '../../models/container-dto';
-import { ContainerService } from '../../services/container.service';
+import { ContainerDTO } from '../../../models/container-dto';
+import { ContainerService } from '../../../services/container.service';
 import { Router } from '@angular/router';
-import { ContainerShareService } from '../../services/container-share.service';
-import { LiquidDTO } from '../../models/liquid-dto';
-import { LiquidService } from '../../services/liquid.service';
+import { ContainerShareService } from '../../../services/container-share.service';
+import { LiquidDTO } from '../../../models/liquid-dto';
+import { LiquidService } from '../../../services/liquid.service';
 
 @Component({
   selector: 'app-container-list',

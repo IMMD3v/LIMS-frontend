@@ -1,22 +1,21 @@
+<section>
 <div class="container-fluid">
     <div class="row">
-      <div class="col-md-12">
-        <body class="">
-        <main>
-          <div class="py-5 text-center">
+      <div class="col">
+          <div class="py-3 text-center">
             @if (!isEditing) {
-              <h2>Formulario Nuevo Container</h2>
+              <h2>Formulario Nueva Solicitud</h2>
               <p class="lead">Los campos del formulario son obligatorios para dar de alta un nuevo container. Por favor complete todos.</p>
             }
             @if (isEditing) {
-              <h2>Editar Container</h2>
+              <h2>Editar Solicitud</h2>
               <p class="lead">Los campos del formulario son obligatorios para actualizar el container. Por favor complete todos.</p>
             }
           </div>
 
-          <div class="row g-5">
-            <div class="col-md-12">
-              <h4 class="mb-3">New Container Form</h4>
+          <div class="row">
+            <div class="col">
+              <h4 class="mb-3">Nueva Solicitud</h4>
               <form class="needs-validation" novalidate="" [formGroup]="newAnalysisForm">
                 <div class="row g-3">
 
@@ -97,9 +96,8 @@
               </form>
             </div>
           </div>
-        </main>
-      </body>
+      </div>
       </div>
     </div>
-</div>
+  </section>
 

@@ -1,8 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ContainerDTO } from '../../models/container-dto';
-import { ContainerShareService } from '../../services/container-share.service';
+import { ContainerDTO } from '../../../models/container-dto';
+import { ContainerShareService } from '../../../services/container-share.service';
 
 @Component({
   selector: 'app-container-details',

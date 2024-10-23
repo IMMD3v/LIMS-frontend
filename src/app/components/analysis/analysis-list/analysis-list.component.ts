@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { AnalysisRequestDTO } from '../../models/analysis-req-dto';
-import { AnalysisRequestService } from '../../services/analysis-request.service';
+import { AnalysisRequestDTO } from '../../../models/analysis-req-dto';
+import { AnalysisRequestService } from '../../../services/analysis-request.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AnalysisReqShareService } from '../../services/analysis-req-share.service';
+import { AnalysisReqShareService } from '../../../services/analysis-req-share.service';
 
 @Component({
   selector: 'app-analysis-list',

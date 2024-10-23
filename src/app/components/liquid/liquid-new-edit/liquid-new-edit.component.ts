@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { LiquidDTO } from '../../models/liquid-dto';
+import { LiquidDTO } from '../../../models/liquid-dto';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LiquidService } from '../../services/liquid.service';
+import { LiquidService } from '../../../services/liquid.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { LiquidShareService } from '../../services/liquid-share.service';
+import { LiquidShareService } from '../../../services/liquid-share.service';
 
 @Component({
   selector: 'app-liquid-new-edit',

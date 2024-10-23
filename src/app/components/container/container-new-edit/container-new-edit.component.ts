@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ContainerService } from '../../services/container.service';
+import { ContainerService } from '../../../services/container.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ContainerDTO } from '../../models/container-dto';
+import { ContainerDTO } from '../../../models/container-dto';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ContainerShareService } from '../../services/container-share.service';
-import { LiquidService } from '../../services/liquid.service';
-import { LiquidDTO } from '../../models/liquid-dto';
+import { ContainerShareService } from '../../../services/container-share.service';
+import { LiquidService } from '../../../services/liquid.service';
+import { LiquidDTO } from '../../../models/liquid-dto';
 
 @Component({
   selector: 'app-container-new-edit',

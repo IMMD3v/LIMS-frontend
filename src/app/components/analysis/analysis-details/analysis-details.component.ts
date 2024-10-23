@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { AnalysisRequestDTO } from '../../models/analysis-req-dto';
-import { AnalysisRequestService } from '../../services/analysis-request.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
-import { AnalysisReqShareService } from '../../services/analysis-req-share.service';
-import { ContainerService } from '../../services/container.service';
-import { ContainerDTO } from '../../models/container-dto';
-import { LiquidService } from '../../services/liquid.service';
-import { LiquidDTO } from '../../models/liquid-dto';
+import { AnalysisRequestDTO } from '../../../models/analysis-req-dto';
+import { Router } from '@angular/router';
+import { AnalysisReqShareService } from '../../../services/analysis-req-share.service';
+import { ContainerService } from '../../../services/container.service';
+import { ContainerDTO } from '../../../models/container-dto';
+import { LiquidService } from '../../../services/liquid.service';
+import { LiquidDTO } from '../../../models/liquid-dto';
 
 @Component({
   selector: 'app-analysis-details',
@@ -23,7 +21,6 @@ export class AnalysisDetailsComponent {
   containerMap: {[key: string]: string} = {};
 
   constructor(
-    private analysisService: AnalysisRequestService,
     private liquidService: LiquidService,
     private containerService: ContainerService,
     private analysisShare: AnalysisReqShareService,
