@@ -1,19 +1,8 @@
-.example-container {
-    border: 1px solid rgba(0, 0, 0, 0.5);
-  }
-  
-  .example-sidenav-content {
-    background-color: cornflowerblue;
-    /* display: flex; */
-    /* height: 100%;
-    align-items: center;
-    justify-content: center; */
-  }
-  
-  .example-sidenav {
-    background-color: rgb(11, 48, 83);
-    padding: 20px;
-    position: fixed;
-    height: 100vh;
-    
-  }
+.example-sidenav {
+  background-color: #1C1F35;
+  padding: 10px;
+  position: fixed;
+  top: 63px;
+  height: auto;
+  width: 316px;
+}

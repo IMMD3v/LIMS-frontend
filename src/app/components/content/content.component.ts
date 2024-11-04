@@ -6,7 +6,7 @@ import { AnalysisListComponent } from "../analysis/analysis-list/analysis-list.c
 @Component({
   selector: 'app-content',
   standalone: true,
-  imports: [ContainerListComponent, LiquidListComponent, AnalysisListComponent],
+  imports: [ ContainerListComponent, LiquidListComponent, AnalysisListComponent],
   templateUrl: './content.component.html',
   styleUrl: './content.component.css'
 })

@@ -1,3 +1,21 @@
-.example-spacer {
-    flex: 1 1 auto;
+.navbar {
+  background-color: #fff;
+}
+
+/* Estilos para pantallas menores a 768px */
+@media (max-width: 768px) {
+    .navbar-brand {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  
+  /* Estilos para pantallas mayores a 768px */
+  @media (min-width: 768px) {
+    .navbar-brand {
+      position: relative;
+      left: 0;
+      transform: translateX(0);
+    }
   }

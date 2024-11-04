@@ -1,0 +1,23 @@
+.card {
+    box-shadow: 2px 6px 15px 0 rgba(69, 65, 78, .1);
+    border-radius: 10px;
+    color: #fff;
+    border: 0;
+    margin: 5px;
+}
+
+.card-primary {
+    background: #1572e8;
+}
+
+.card-info {
+    background: #48abf7;
+}
+
+.card-success {
+    background: #31ce36;
+}
+
+.card-secondary {
+    background: #6861ce;
+}
